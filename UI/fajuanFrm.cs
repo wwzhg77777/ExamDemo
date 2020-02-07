@@ -254,6 +254,8 @@ namespace UI
         private void btnRevise_Click(object sender, EventArgs e)
         {
             if (dataSource.CurrentCell == null)
+
+
                 MessageBox.Show("未选中或无数据，请添加。");
             else
             {

@@ -1,0 +1,14 @@
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\BLL.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\BLL.pdb
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\DAL.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\Model.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\Google.Protobuf.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\DAL.pdb
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\Model.pdb
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\MySql.Data.xml
+C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.pdb

@@ -1,0 +1,6 @@
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\bin\Debug\CustomDataGridView.dll
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\bin\Debug\CustomDataGridView.pdb
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\obj\Debug\CustomDataGridView.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\obj\Debug\CustomDataGridView.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\obj\Debug\CustomDataGridView.dll
+C:\Users\Administrator\source\repos\ExamDemo\CustomDataGridView\obj\Debug\CustomDataGridView.pdb
