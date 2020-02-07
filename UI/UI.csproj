@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE3047B2-6B01-469C-B9DE-FE6BA2FC4FA1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateSUb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateSUb.Designer.cs">
+      <DependentUpon>UpdateSUb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UploadSub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DycAddOfListView.cs">
+      <DependentUpon>UploadSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UploadSub.Designer.cs">
+      <DependentUpon>UploadSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSub.Designer.cs">
+      <DependentUpon>AddSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamLoginTea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExamLoginTea.Designer.cs">
+      <DependentUpon>ExamLoginTea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamLogonTea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExamLogonTea.Designer.cs">
+      <DependentUpon>ExamLogonTea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamMainTea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExamMainTea.Designer.cs">
+      <DependentUpon>ExamMainTea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fajuanFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fajuanFrm.Designer.cs">
+      <DependentUpon>fajuanFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateControls.cs">
+      <DependentUpon>fajuanFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFrm.Designer.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionManFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionManFrm.Designer.cs">
+      <DependentUpon>QuestionManFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreManFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreManFrm.Designer.cs">
+      <DependentUpon>ScoreManFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingFrm.Designer.cs">
+      <DependentUpon>SettingFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestPaperModeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestPaperModeFrm.Designer.cs">
+      <DependentUpon>TestPaperModeFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamineeManFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExamineeManFrm.Designer.cs">
+      <DependentUpon>ExamineeManFrm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateSUb.resx">
+      <DependentUpon>UpdateSUb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadSub.resx">
+      <DependentUpon>UploadSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSub.resx">
+      <DependentUpon>AddSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamLoginTea.resx">
+      <DependentUpon>ExamLoginTea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamLogonTea.resx">
+      <DependentUpon>ExamLogonTea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamMainTea.resx">
+      <DependentUpon>ExamMainTea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fajuanFrm.resx">
+      <DependentUpon>fajuanFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFrm.resx">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="QuestionManFrm.resx">
+      <DependentUpon>QuestionManFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreManFrm.resx">
+      <DependentUpon>ScoreManFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingFrm.resx">
+      <DependentUpon>SettingFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestPaperModeFrm.resx">
+      <DependentUpon>TestPaperModeFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamineeManFrm.resx">
+      <DependentUpon>ExamineeManFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{1a36107d-61d0-4c51-9e7c-1193600bf1ee}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomDataGridView\CustomDataGridView.csproj">
+      <Project>{83d1d301-b478-4156-8d56-4ec67939d0e9}</Project>
+      <Name>CustomDataGridView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{7f0bbb37-7b16-46bb-a31e-d1b9e8ebf44a}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{f9eef393-075c-449c-8f6f-24f36d45d064}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2560x1600.png" />
+    <None Include="Resources\1.jpg" />
+    <None Include="Resources\4.jpg" />
+    <None Include="Resources\8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_21b.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddSub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddSubA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddSubB.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
