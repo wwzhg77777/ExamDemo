@@ -45,12 +45,17 @@
   <ItemGroup>
     <Compile Include="ExamineeManMethod.cs" />
     <Compile Include="Method.cs" />
+    <Compile Include="ScoreManMethod.cs" />
     <Compile Include="TeaManager.cs" />
     <Compile Include="KEY.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomDataGridView\CustomDataGridView.csproj">
+      <Project>{83d1d301-b478-4156-8d56-4ec67939d0e9}</Project>
+      <Name>CustomDataGridView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{7f0bbb37-7b16-46bb-a31e-d1b9e8ebf44a}</Project>
       <Name>DAL</Name>

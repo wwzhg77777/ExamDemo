@@ -12,6 +12,7 @@ namespace UI
 {
     public partial class ExamMainTea : Form
     {
+        public static ExamMainTea EMTFrm;
         public delegate void Send();// 定义委托。  用于另一个窗体向此窗体传递信息
         public static event Send Mysend;// 定义事件
 
@@ -24,13 +25,13 @@ namespace UI
         }
 
         #region 创建窗体
-        MainFrm MF = null;// 主页
-        QuestionManFrm QMF = null;// 题库管理
-        ExamineeManFrm EMF = null;// 考生管理
-        TestPaperModeFrm TPMF = null;// 抽题组卷
-        SettingFrm SF = null;// 设置
-        About A = null;// 关于
-        //ScoreManFrm SMF = null;// 课程管理
+        public static MainFrm MF = null;// 主页
+        public static QuestionManFrm QMF = null;// 题库管理
+        public static ExamineeManFrm EMF = null;// 考生管理
+        public static TestPaperModeFrm TPMF = null;// 抽题组卷
+        public static SettingFrm SF = null;// 设置
+        private static About AF = null;// 关于
+        public static ScoreManFrm SMF = null;// 课程管理/院系管理
 
         #endregion 
 
@@ -55,6 +56,7 @@ namespace UI
                 }
             })
             { IsBackground = true }.Start();
+            EMTFrm = this;
         }
 
         private void _Mysend()//另一个窗体引用SendFunction方法触发Send()委托的事件mysend()，mysend()注册事件到_send()方法并执行_send()方法
@@ -77,7 +79,7 @@ namespace UI
         private void menuStrip1_ItemAdded(object sender, ToolStripItemEventArgs e)
         {
             // || e.Item.Text == "关闭(&C)"
-            if (e.Item.Text.Length == 0 || e.Item.Text == "还原(&R)" || e.Item.Text == "最小化(&N)" )//隐藏图标、最小化、最大化
+            if (e.Item.Text.Length == 0 || e.Item.Text == "还原(&R)" || e.Item.Text == "最小化(&N)")//隐藏图标、最小化、最大化
             {
                 e.Item.Visible = false;
             }
@@ -114,6 +116,7 @@ namespace UI
 
         private void 题库管理_Click(object sender, EventArgs e)
         {
+            BottomSidebar.Visible = false;
             if (BLL.KEY.QuestionManFrmkey != "1")// 题库窗体关闭状态
             {
                 QMF = new QuestionManFrm(this);
@@ -127,29 +130,50 @@ namespace UI
             }
         }
 
+        private void 课程管理_院系管理(object sender, EventArgs e)
+        {
+            BottomSidebar.Visible = false;
+            if (BLL.KEY.ScoreManFrmkey != "1")// 题库窗体关闭状态
+            {
+                SMF = new ScoreManFrm(this);
+                SMF.MdiParent = this;  // 使父窗体成为子窗体的MDI容器
+                SMF.Show();
+                SMF.WindowState = FormWindowState.Maximized;
+            }
+            else// 激活窗体
+            {
+                Login.BLL.TeaManager.ActiveFrm(SMF);
+            }
+        }
+
         private void About_Click(object sender, EventArgs e)
         {
-            A = new About();
-            A.ShowDialog();
+            AF = new About();
+            AF.ShowDialog();
         }
 
         private void 考生管理_Click(object sender, EventArgs e)
         {
+            BottomSidebar.Visible = false;
             if (BLL.KEY.ExamineeManFrmkey != "1")// 考生窗体关闭状态
             {
                 EMF = new ExamineeManFrm(this);
                 EMF.MdiParent = this;  // 使父窗体成为子窗体的MDI容器
+                EMF.Tag = "1";// 不是发卷状态
                 EMF.Show();
                 EMF.WindowState = FormWindowState.Maximized;
             }
             else// 激活窗体
             {
+                MessageBox.Show(FindForm().Name);
                 Login.BLL.TeaManager.ActiveFrm(EMF);
+                EMF.Tag = "1";// 不是发卷状态
             }
         }
 
         private void 抽题组卷_Click(object sender, EventArgs e)
         {
+            BottomSidebar.Visible = false;
             if (BLL.KEY.TestPaperModeFrmkey != "1")// 组卷窗体关闭状态
             {
                 TPMF = new TestPaperModeFrm(this);
@@ -165,6 +189,7 @@ namespace UI
 
         private void 设置_Click(object sender, EventArgs e)
         {
+            BottomSidebar.Visible = false;
             if (BLL.KEY.SettingFrmkey != "1")// 设置窗体关闭状态
             {
                 SF = new SettingFrm(this);
@@ -179,5 +204,31 @@ namespace UI
         }
         #endregion
 
+        private void 数据库维护ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BottomSidebar.Visible = false;
+        }
+        #region 主页操作
+        private void 用户ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 弹窗
+
+            // 查看当前用户信息
+        }
+
+        private void 修改用户密码ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 弹窗
+
+            // 密码已更改，返回
+        }
+
+        private void 退出当前用户ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 注销
+
+            // 重启登录界面
+        }
+        #endregion
     }
 }

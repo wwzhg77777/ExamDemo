@@ -14,7 +14,7 @@ namespace BLL
         public static string ExamineeManFrmkey = "";// 判断考生窗体是否打开
         public static string TestPaperModeFrmkey = "";// 判断组卷窗体是否打开
         public static string SettingFrmkey = "";// 判断设置窗体是否打开
-        //public static string ScoreManFrmkey = "";// 判断课程窗体是否打开
+        public static string ScoreManFrmkey = "";// 判断课程窗体是否打开
         public static string fajuanFrmkey = "";// 判断发卷窗体是否打开
     }
 }

@@ -50,6 +50,12 @@ namespace UI
             // 添加默认显示的图像
             for (int i = 0; i < 2; i++)
                 listView1.Items[i].ImageIndex = 0;
+
+            // 添加所属课程
+            string sql = "select `Name` from `tb_lesson`";
+            DataTable LessonDT= DAL.MySqlDBTool.MySqlCodeByDT(sql);
+            foreach (DataRow item in LessonDT.Rows)
+                comboBox2.Items.Add(item.ItemArray[0].ToString());
         }
         #endregion
 
@@ -91,15 +97,14 @@ namespace UI
                     dic.Add("ID", Model.ExamInfo.MySqlInsIndex.ToString());
                     dic.Add("Name", comboBox4.Text);
                     dic.Add("Type", comboBox1.Text);
-                    dic.Add("LessonID", comboBox2.Text);
+                    dic.Add("ofLesson", comboBox2.Text);
 
                     // 所属课程可为空
                     if (comboBox2.Text == string.Empty)
-                        dic.Remove("LessonID");
+                        dic.Remove("ofLesson");
 
-                    if (MySqlDB.ParMySqlIDUCode(dic) > 0)// 判断SQL语句是否输入正确
+                    if (MySqlDB.ParMySqlIDUCode("tb_taoti",dic) > 0)// 判断SQL语句是否输入正确
                     {
-                        // DAL.DAO.DataGridViewStyle(fajuanFrm.dataSource);// 查询不需要再次加载列标题
                         MySqlDB.Display(fajuanFrm.fF.dataSource, "tb_taoti");// 刷新数据表
                         MessageBox.Show("成功录入一条数据");
                     }
@@ -135,21 +140,20 @@ namespace UI
                     int.TryParse(combInsRecord.Text, out MinCount);
                     string cusapp = @" ID BETWEEN " + MinCount + @" AND " + Model.ExamInfo.MySqlInsIndex + " ORDER BY "+dic.Keys.ToList()[0]+" DESC";
 
-                    if (MySqlDB.CusMySqlIDUCode(cusapp,dic) > 0)// 判断SQL语句是否输入正确
+                    if (MySqlDB.CusMySqlIDUCode("tb_taoti",cusapp,dic) > 0)// 判断SQL语句是否输入正确
                     {
                         dic.Clear();
                         dic.Add("ID", MinCount.ToString());
                         dic.Add("Name", comboBox4.Text);
                         dic.Add("Type", comboBox1.Text);
-                        dic.Add("LessonID", comboBox2.Text);
+                        dic.Add("ofLesson", comboBox2.Text);
 
                         // 所属课程可为空
                         if (comboBox2.Text == string.Empty)
-                            dic.Remove("LessonID");
+                            dic.Remove("ofLesson");
 
-                        if (MySqlDB.ParMySqlIDUCode(dic) > 0)// 判断SQL语句是否输入正确
+                        if (MySqlDB.ParMySqlIDUCode("tb_taoti",dic) > 0)// 判断SQL语句是否输入正确
                         {
-                            // DAL.DAO.DataGridViewStyle(fajuanFrm.dataSource);// 查询不需要再次加载列标题
                             MySqlDB.Display(fajuanFrm.fF.dataSource, "tb_taoti");// 刷新数据表
                             MessageBox.Show("成功插入一条数据");
                         }
@@ -188,7 +192,7 @@ namespace UI
         }
 
         #endregion
-
+        #region 打开文件
         private void listView1_Click(object sender, EventArgs e)
         {
             // 打开文件
@@ -246,7 +250,8 @@ namespace UI
             }
             #endregion
         }
-
+        #endregion
+        #region 插入方式
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox3.SelectedIndex == 1)
@@ -254,7 +259,8 @@ namespace UI
             else
                 pelInsSub.Visible = false;
         }
-
+        #endregion
+        #region 显示数据表的序号
         private void combInsRecord_Click(object sender, EventArgs e)
         {
             // 清空列表缓存
@@ -265,7 +271,8 @@ namespace UI
                 combInsRecord.Items.Add(fajuanFrm.fF.dataSource.Rows[i].Cells[0].Value);
             }
         }
-
+        #endregion
+        #region 清空文件
         private void btnClear_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("确定清空当前缓存文件？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button2) == DialogResult.OK)
@@ -283,5 +290,6 @@ namespace UI
             }
             else { }
         }
+        #endregion
     }
 }

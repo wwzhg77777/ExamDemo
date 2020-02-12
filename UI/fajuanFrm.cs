@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,12 @@ namespace UI
 {
     public partial class fajuanFrm : Form
     {
-        #region 静态变量
-        public static fajuanFrm fF;
-        #endregion
+        #region 变量
 
         MainFrm m1;
+        public static fajuanFrm fF;
+        #endregion
+        #region 构造函数
         public fajuanFrm(MainFrm mm)
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace UI
             m1 = mm;
             fF = this;
         }
-
+        #endregion
         #region 变量、对象
         // 控件复选状态
         bool CheckAuto = false;
@@ -37,7 +39,7 @@ namespace UI
         bool CheckCustom = false;
         #endregion
 
-        #region 组卷模式
+        #region 组卷模式(AB、学号、模板）
         private void ABjuanMode(object sender, EventArgs e)
         {
             // 清空窗体控件
@@ -61,15 +63,86 @@ namespace UI
         }
 
         #endregion
-
+        #region 窗体加载
         private void fajuanFrm_Load(object sender, EventArgs e)
         {
             BLL.KEY.fajuanFrmkey = "1";
         }
-
-        private void PreviousStep_Click(object sender, EventArgs e)
+        private void fajuanFrm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            BLL.KEY.fajuanFrmkey = "";
         }
+        #endregion
+        #region 窗体激活
+        private void fajuanFrm_Activated(object sender, EventArgs e)
+        {
+            ExamMainTea.EMTFrm.BottomSidebar.Visible = true;
+            ExamMainTea.EMTFrm.PreviousStep.Text = "返回主页";
+            ExamMainTea.EMTFrm.NextStep.Text = "下一步";
+            #region 取消上一次操作添加的事件
+            string[] prevstep = BLL.Method.GetBindingMethod(ExamMainTea.EMTFrm.PreviousStep,"Click");
+            string[] nextstep = BLL.Method.GetBindingMethod(ExamMainTea.EMTFrm.NextStep,"Click");
+            if (prevstep != null)
+            {
+                for (int i = 0; i < prevstep.Count(); i++)
+                {
+                    if (prevstep[i] == "Previous_fajuan") ExamMainTea.EMTFrm.PreviousStep.Click -= fajuanFrm.fF.Previous_fajuan;
+                    if (prevstep[i] == "Previous_kaosheng") ExamMainTea.EMTFrm.PreviousStep.Click -= ExamineeManFrm.EMF.Previous_kaosheng;
+                }
+            }
+            if (nextstep != null)
+            {
+                for (int i = 0; i < nextstep.Count(); i++)
+                {
+                    if (nextstep[i] == "Next_fajuan") ExamMainTea.EMTFrm.NextStep.Click -= fajuanFrm.fF.Next_fajuan;
+                    if (nextstep[i] == "Next_kaosheng") ExamMainTea.EMTFrm.NextStep.Click -= ExamineeManFrm.EMF.Next_kaosheng;
+                }
+            }
+            #endregion
+            ExamMainTea.EMTFrm.PreviousStep.Click += Previous_fajuan;// 单击事件
+            ExamMainTea.EMTFrm.NextStep.Click += Next_fajuan;// 单击事件
+        }
+        #endregion
+        #region 返回主页
+        public void Previous_fajuan(object sender, EventArgs e)
+        {
+            if (BLL.KEY.MainFrmkey != "1")// 题库窗体关闭状态
+            {
+                ExamMainTea.MF = new MainFrm((ExamMainTea)ActiveForm);
+                ExamMainTea.MF.MdiParent = (ExamMainTea)ActiveForm;  // 使父窗体成为子窗体的MDI容器
+                ExamMainTea.MF.Show();
+                ExamMainTea.MF.WindowState = FormWindowState.Maximized;
+            }
+            else// 激活窗体
+            {
+                Login.BLL.TeaManager.ActiveFrm(ExamMainTea.MF);
+            }
+            ExamMainTea.EMTFrm.BottomSidebar.Visible = false;
+        }
+        #endregion
+        #region 下一步
+        public void Next_fajuan(object sender, EventArgs e)
+        {
+            // 判断通过的条件
+            if (dataSource.CurrentCell == null) { MessageBox.Show("未选中套题"); return; };
+
+            if (BLL.KEY.ExamineeManFrmkey != "1")// 考生窗体关闭状态
+            {
+                ExamMainTea.EMF = new ExamineeManFrm((ExamMainTea)ActiveForm);
+                ExamMainTea.EMF.MdiParent = ActiveForm;  // 使父窗体成为子窗体的MDI容器
+                ExamMainTea.EMF.Tag = "0";// 发卷状态
+                ExamMainTea.EMF.Show();
+                ExamMainTea.EMF.WindowState = FormWindowState.Maximized;
+            }
+            else// 激活窗体
+            {
+                Login.BLL.TeaManager.ActiveFrm(ExamMainTea.EMF);
+                ExamMainTea.EMF.Tag = "0";// 发卷状态
+            }
+            ExamMainTea.EMTFrm.checkBox1.Checked = true;// 题库通过
+            ExamineeManFrm.SubNextToKS(BLL.Method.GetDgvToTable(dataSource), (int)dataSource.CurrentRow.Index);// 传值
+        }
+        #endregion
 
         #region 取消复选状态
         private void CustomPa_CheckedChanged(object sender, EventArgs e)
@@ -136,7 +209,7 @@ namespace UI
         public void btn1_Click(object sender, EventArgs e)
         {
             dataSource.DataSource = null;// 每次打开都清空
-            dataSource.DataSource = DAL.ExcelDBTool.ReadExcelToTable();
+            //dataSource.DataSource = DAL.ExcelDBTool.ReadExcelToTable();
             btn1.Visible = false;
         }
 
@@ -155,7 +228,7 @@ namespace UI
                 dataSource.Columns.Clear();
 
                 // 加载数据表  
-                DAL.DAO.DataGridViewStyle(dataSource);
+                BLL.Method.DGVStyleToSub(dataSource);
                 DAL.DAO.Display(dataSource, "tb_taoti");
                 dataSource.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 // 更改控件
@@ -168,7 +241,7 @@ namespace UI
             }
         }
         #endregion
-
+        #region 添加题目（上传、自定义Custom)
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (btnAdd.Text == "上传套卷")
@@ -182,12 +255,8 @@ namespace UI
                 add.ShowDialog();
             }
         }
-
-        private void fajuanFrm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            BLL.KEY.fajuanFrmkey = "";
-        }
-
+        #endregion
+        #region 刷新
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             if (UploadPa.Checked == true)// 刷新套题数据表
@@ -195,7 +264,7 @@ namespace UI
                 DAL.DAO.Display(dataSource, "tb_taoti");
             }
         }
-
+        #endregion
         #region 删除
         private void btnDel_Click(object sender, EventArgs e)
         {
@@ -220,26 +289,21 @@ namespace UI
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("ID", dataSource.Rows[SelIndex].Cells[0].Value.ToString());
 
-            if (MySqlDB.ParMySqlIDUCode(dic, 0) > 0)// 判断SQL语句是否输入正确
+            if (MySqlDB.ParMySqlIDUCode("tb_taoti", dic, 0) > 0)// 判断SQL语句是否输入正确
             {
-                if (Model.ExamInfo.MySqlInsIndex == (long)MinCount)
-                    MySqlDB.Display(dataSource, "tb_taoti");// 刷新数据表
+                if (Model.ExamInfo.MySqlInsIndex == (long)MinCount)// 刷新数据表
+                {
+                    MySqlDB.Display(dataSource, "tb_taoti");
+                    return;
+                }
 
-                // DAL.DAO.DataGridViewStyle(dataSource);// 查询不需要再次加载列标题
+                // 删除ID为n，将 n + 1 的ID值 - 1
                 dic.Clear();
                 dic.Add("ID", "ID-1");
                 string cusapp = @" ID BETWEEN " + MinCount + @" AND " + Model.ExamInfo.MySqlInsIndex + " ORDER BY " + dic.Keys.ToList()[0] + " ASC";
-                // 删除ID为n，将 n + 1 的ID值 - 1
-                if (MySqlDB.CusMySqlIDUCode(cusapp, dic) > 0)// 判断SQL语句是否输入正确
-                {
-                    MySqlDB.Display(dataSource, "tb_taoti");// 刷新数据表
-                    MessageBox.Show("成功删除一条数据。");
-                }
-                else
-                {
-                    MessageBox.Show("数据添加失败，请重试。1");
-                    return;
-                }
+
+                MySqlDB.CusMySqlIDUCode("tb_taoti", cusapp, dic);
+                MySqlDB.Display(dataSource, "tb_taoti");// 刷新数据表
             }
             else
             {
@@ -260,78 +324,18 @@ namespace UI
             else
             {
                 UpdateSUb US = new UpdateSUb();
-                if (US.Tag.ToString() != "0")
-                {
-                    US.Tag = "0";
-                    US.ShowDialog();
-                }
+                US.Tag = "0";
+                US.ShowDialog();
             }
         }
 
         #endregion
-
-        #region 下一步
-        private void NextStep_Click(object sender, EventArgs e)
+        #region 单元格变化，决定下一步
+        private void dataSource_CurrentCellChanged(object sender, EventArgs e)
         {
-
-
+            if (((DataGridView)sender).CurrentCell == null) return;
+            this.label1.Text = "选定套题编号：" + (((DataGridView)sender).CurrentCell.RowIndex + 1);
         }
-
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog file = new FolderBrowserDialog();
-            file.ShowDialog();
-            string txtfilepath = file.SelectedPath + @"\test.txt";
-            Debug.Print("txtfilepath:" + file.SelectedPath);
-            Stopwatch stopw = new Stopwatch();
-            using (FileStream txtfile = new FileStream(txtfilepath, FileMode.Create, FileAccess.Write))
-            {
-                using (StreamWriter sw = new StreamWriter(txtfile,Encoding.UTF8))
-                {
-                    List<string> lst = new List<string>();
-                    lst.Add("null");
-                    foreach (DataGridViewRow item in dataSource.Rows)
-                    {
-                        foreach (DataGridViewCell item1 in item.Cells)
-                        {
-                            lst.Add(item1.Value.ToString());
-                            Debug.Print(item1.Value.ToString());
-
-                        }
-                    }
-                    stopw.Restart();
-                    for (int i = 1; i < lst.Count; i++)
-                    {
-                        if (i % 3 == 0)
-                        {
-                            sw.WriteLine(lst[i]);
-                            continue;
-                        }
-                        sw.Write(lst[i] + "\t");
-                    }
-                    stopw.Stop();
-                    MessageBox.Show(stopw.Elapsed.TotalMilliseconds.ToString());
-                    sw.Close();
-                    txtfile.Close();
-                }
-            }
-            string sql = @"LOAD DATA LOCAL INFILE '" + txtfilepath.Replace(@"\","/") + @"' INTO TABLE tb_test FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n' ;";
-            Debug.Print(sql);
-            stopw.Restart();
-            DAL.MySqlDBTool MySqlDB = new DAL.MySqlDBTool();
-            MySqlDB.Customsql(sql);
-            stopw.Stop();
-            MessageBox.Show(stopw.Elapsed.TotalMilliseconds.ToString());
-        }
     }
 }
-
-/*
- * // 判断通过的条件
-            if (dataSource.CurrentCell == null)
-                return;
-            int SelIndex = dataSource.CurrentCell.RowIndex;
-            label1.Text = "选定\r\n套题编号: " + dataSource.Rows[SelIndex].Cells[0].Value.ToString();
-            */

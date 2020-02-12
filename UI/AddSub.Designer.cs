@@ -103,6 +103,7 @@
             this.Complete.TabIndex = 28;
             this.Complete.Text = "完成";
             this.Complete.UseVisualStyleBackColor = true;
+            this.Complete.Click += new System.EventHandler(this.Complete_Click);
             // 
             // Return
             // 

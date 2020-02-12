@@ -34,3 +34,4 @@ C:\Users\Administrator\source\repos\ExamDemo\UI\obj\Debug\UI.UploadSub.resources
 C:\Users\Administrator\source\repos\ExamDemo\UI\obj\Debug\UI.UpdateSUb.resources
 C:\Users\Administrator\source\repos\ExamDemo\UI\bin\Debug\CustomDataGridView.dll
 C:\Users\Administrator\source\repos\ExamDemo\UI\bin\Debug\CustomDataGridView.pdb
+C:\Users\Administrator\source\repos\ExamDemo\UI\obj\Debug\UI.SubAdd.resources

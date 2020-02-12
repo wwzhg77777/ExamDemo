@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -56,7 +56,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btn1 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.LeftSidebar.SuspendLayout();
             this.RightSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
@@ -204,7 +203,6 @@
             // RightSidebar
             // 
             this.RightSidebar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RightSidebar.Controls.Add(this.button1);
             this.RightSidebar.Controls.Add(this.label1);
             this.RightSidebar.Controls.Add(this.btnDel);
             this.RightSidebar.Controls.Add(this.btnRevise);
@@ -280,8 +278,8 @@
             // 
             this.dataSource.AllowUserToAddRows = false;
             this.dataSource.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataSource.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataSource.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataSource.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataSource.ColumnHeadersHeight = 30;
             this.dataSource.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -292,9 +290,11 @@
             this.dataSource.Name = "dataSource";
             this.dataSource.ReadOnly = true;
             this.dataSource.RowTemplate.Height = 27;
+            this.dataSource.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataSource.Size = new System.Drawing.Size(1171, 712);
             this.dataSource.TabIndex = 7;
             this.dataSource.Visible = false;
+            this.dataSource.CurrentCellChanged += new System.EventHandler(this.dataSource_CurrentCellChanged);
             // 
             // pictureBox8
             // 
@@ -448,16 +448,6 @@
             this.btn1.Visible = false;
             this.btn1.Click += new System.EventHandler(this.btn1_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(21, 425);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 88);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // fajuanFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -472,6 +462,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fajuanFrm";
             this.Text = "发卷";
+            this.Activated += new System.EventHandler(this.fajuanFrm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fajuanFrm_FormClosed);
             this.Load += new System.EventHandler(this.fajuanFrm_Load);
             this.LeftSidebar.ResumeLayout(false);
@@ -522,6 +513,5 @@
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.DataGridView dataSource;
-        private System.Windows.Forms.Button button1;
     }
 }

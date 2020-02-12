@@ -22,7 +22,7 @@ namespace Login.DAL     //数据访问层
                 //创建一个命令对象，并添加命令
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = @"SELECT * FROM tb_administrator WHERE Name=@UserName AND MD5_PWD=@Password";
-                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandType = CommandType.Text;
                 cmd.Parameters.Add(new MySqlParameter("@userName", Name));
                 cmd.Parameters.Add(new MySqlParameter("@Password", MD5_PWD));
 

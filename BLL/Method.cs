@@ -1,9 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -131,6 +134,215 @@ namespace BLL
                 ic = Icon.FromHandle(fi.hIcon);
             }
             return ic;
+        }
+        #endregion
+
+        #region 发卷_题库管理的dgv控件添加列标题
+
+        /// <summary>
+        /// 添加列标题
+        /// </summary>
+        /// <param name="dgv">要显示的数据表</param>
+        public static void DGVStyleToSub(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;// 取消连接数据库后的自动创建列
+            DataGridViewTextBoxColumn ID = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn Name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn Type = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn ofLesson = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn JoinTime = new DataGridViewTextBoxColumn();
+
+            ID.Name = "ID";
+            ID.DataPropertyName = "ID";
+            ID.HeaderText = "套题编号";
+            ID.FillWeight = 30;
+
+            Name.Name = "Name";
+            Name.DataPropertyName = "Name";
+            Name.HeaderText = "套题名称";
+
+            Type.Name = "Type";
+            Type.DataPropertyName = "Type";
+            Type.HeaderText = "套题类型";
+            Type.FillWeight = 40;
+
+            ofLesson.Name = "ofLesson";
+            ofLesson.DataPropertyName = "ofLesson";
+            ofLesson.HeaderText = "所属课程";
+
+            JoinTime.Name = "JoinTime";
+            JoinTime.DataPropertyName = "JoinTime";
+            JoinTime.HeaderText = "添加时间";
+            JoinTime.FillWeight = 40;
+
+            dgv.Columns.Clear();// 清空列表头
+
+            // 数组的形式添加列标题
+            dgv.Columns.AddRange(ID, Name, Type, ofLesson, JoinTime);
+            dgv.Font = new Font("GB2312", 11);
+        }
+
+        #endregion
+
+        #region 发卷_课程管理/院系管理的dgv控件添加列标题
+        /// <summary>
+        /// 添加列标题
+        /// </summary>
+        /// <param name="dgv">要显示的数据表</param>
+        public static void DGVStyleToLesson(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;// 取消连接数据库后的自动创建列
+            DataGridViewTextBoxColumn ID = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn Name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn ofProfession = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn JoinTime = new DataGridViewTextBoxColumn();
+
+            ID.Name = "ID";
+            ID.DataPropertyName = "ID";
+            ID.HeaderText = "课程编号";
+
+            Name.Name = "Name";
+            Name.DataPropertyName = "Name";
+            Name.HeaderText = "课程名称";
+
+            ofProfession.Name = "ofProfession";
+            ofProfession.DataPropertyName = "ofProfession";
+            ofProfession.HeaderText = "所属专业";
+            
+            JoinTime.Name = "JoinTime";
+            JoinTime.DataPropertyName = "JoinTime";
+            JoinTime.HeaderText = "添加时间";
+
+            dgv.Columns.Clear();// 清空列表头
+
+            // 数组的形式添加列标题
+            dgv.Columns.AddRange(ID, Name, ofProfession, JoinTime);
+            dgv.Font = new Font("GB2312", 11);
+        }
+
+        /// <summary>
+        /// 添加列标题
+        /// </summary>
+        /// <param name="dgv">要显示的数据表</param>
+        public static void DGVStyleToDepartment(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;// 取消连接数据库后的自动创建列
+            DataGridViewTextBoxColumn ID = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn Name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn JoinTime = new DataGridViewTextBoxColumn();
+
+            ID.Name = "ID";
+            ID.DataPropertyName = "ID";
+            ID.HeaderText = "院系编号";
+
+            Name.Name = "Name";
+            Name.DataPropertyName = "Name";
+            Name.HeaderText = "院系名称";
+
+            JoinTime.Name = "JoinTime";
+            JoinTime.DataPropertyName = "JoinTime";
+            JoinTime.HeaderText = "添加时间";
+
+            dgv.Columns.Clear();// 清空列表头
+
+            // 数组的形式添加列标题
+            dgv.Columns.AddRange(ID, Name, JoinTime);
+            dgv.Font = new Font("GB2312", 11);
+        }
+        /// <summary>
+        /// 添加列标题
+        /// </summary>
+        /// <param name="dgv">要显示的数据表</param>
+        public static void DGVStyleToProfession(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;// 取消连接数据库后的自动创建列
+            DataGridViewTextBoxColumn ID = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn Name = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn ofDepartment = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn JoinTime = new DataGridViewTextBoxColumn();
+
+            ID.Name = "ID";
+            ID.DataPropertyName = "ID";
+            ID.HeaderText = "专业编号";
+
+            Name.Name = "Name";
+            Name.DataPropertyName = "Name";
+            Name.HeaderText = "专业名称";
+
+            ofDepartment.Name = "ofDepartment";
+            ofDepartment.DataPropertyName = "ofDepartment";
+            ofDepartment.HeaderText = "所属院系";
+
+            JoinTime.Name = "JoinTime";
+            JoinTime.DataPropertyName = "JoinTime";
+            JoinTime.HeaderText = "添加时间";
+
+            dgv.Columns.Clear();// 清空列表头
+
+            // 数组的形式添加列标题
+            dgv.Columns.AddRange(ID, Name, ofDepartment, JoinTime);
+            dgv.Font = new Font("GB2312", 11);
+        }
+        #endregion
+
+        #region dgv转dt
+        /// <summary>
+        /// dgv转dt
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <returns></returns>
+        public static DataTable GetDgvToTable(DataGridView dgv)
+        {
+            DataTable dt = new DataTable();
+
+            // 列强制转换
+            for (int count = 0; count < dgv.Columns.Count; count++)
+            {
+                DataColumn dc = new DataColumn(dgv.Columns[count].Name.ToString());
+                dt.Columns.Add(dc);
+            }
+
+            // 循环行
+            for (int count = 0; count < dgv.Rows.Count; count++)
+            {
+                DataRow dr = dt.NewRow();
+                for (int countsub = 0; countsub < dgv.Columns.Count; countsub++)
+                {
+                    dr[countsub] = Convert.ToString(dgv.Rows[count].Cells[countsub].Value);
+                }
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+        #endregion
+
+        #region 判断事件是否注册
+        /// <summary>
+        /// 查找控件的对应的事件注册的方法名
+        /// </summary>
+        /// <param name="control">控件</param>
+        /// <param name="eventName">事件</param>
+        /// <returns>返回事件注册的方法名，若未找到则返回null</returns>
+        public static string[] GetBindingMethod(Control control, string eventName)
+        {
+            //EventInfo info = control.GetType().GetEvent(eventName);
+
+            PropertyInfo propertyInfo = control.GetType().GetProperty("Events", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (propertyInfo == null) { return null; }
+
+            EventHandlerList eventList = (EventHandlerList)propertyInfo.GetValue(control, null);
+            FieldInfo fieldInfo = typeof(Control).GetField("Event" + eventName, BindingFlags.Static | BindingFlags.NonPublic);
+            if (fieldInfo == null) { return null; }
+
+            Delegate delegateInfo = eventList[fieldInfo.GetValue(control)];
+            if (delegateInfo == null) { return null; }
+            Delegate[] delegateList = delegateInfo.GetInvocationList();
+
+            List<string> lst = new List<string>();
+            foreach (Delegate item in delegateList)
+                lst.Add(item.Method.Name);
+
+            return lst.ToArray();
         }
         #endregion
     }

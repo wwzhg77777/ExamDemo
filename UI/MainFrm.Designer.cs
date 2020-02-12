@@ -75,7 +75,7 @@
             this.listView1.Size = new System.Drawing.Size(323, 671);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.Click += new System.EventHandler(this.listView1_Click);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // imageList1
             // 
@@ -85,6 +85,8 @@
             this.imageList1.Images.SetKeyName(1, "4.jpg");
             this.imageList1.Images.SetKeyName(2, "8.jpg");
             this.imageList1.Images.SetKeyName(3, "11bradfieldpark1920x1200.jpg");
+            this.imageList1.Images.SetKeyName(4, "dddddddddddd (203).jpg");
+            this.imageList1.Images.SetKeyName(5, "gghh (135).jpg");
             // 
             // pictureBox4
             // 
@@ -92,7 +94,7 @@
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = global::UI.Properties.Resources._8;
             this.pictureBox4.Location = new System.Drawing.Point(562, 379);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(270, 112);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -106,7 +108,7 @@
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::UI.Properties.Resources._2560x1600;
             this.pictureBox1.Location = new System.Drawing.Point(164, 155);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(270, 128);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -120,7 +122,7 @@
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::UI.Properties.Resources._1;
             this.pictureBox2.Location = new System.Drawing.Point(562, 155);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(270, 128);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -134,7 +136,7 @@
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::UI.Properties.Resources._4;
             this.pictureBox3.Location = new System.Drawing.Point(164, 379);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(270, 112);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -147,7 +149,7 @@
             this.btnfajuan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnfajuan.Font = new System.Drawing.Font("微软雅黑", 16F, System.Drawing.FontStyle.Bold);
             this.btnfajuan.Location = new System.Drawing.Point(225, 296);
-            this.btnfajuan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnfajuan.Margin = new System.Windows.Forms.Padding(2);
             this.btnfajuan.Name = "btnfajuan";
             this.btnfajuan.Size = new System.Drawing.Size(137, 35);
             this.btnfajuan.TabIndex = 3;
@@ -160,7 +162,7 @@
             this.btngaijuan.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btngaijuan.Font = new System.Drawing.Font("微软雅黑", 16F, System.Drawing.FontStyle.Bold);
             this.btngaijuan.Location = new System.Drawing.Point(638, 296);
-            this.btngaijuan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btngaijuan.Margin = new System.Windows.Forms.Padding(2);
             this.btngaijuan.Name = "btngaijuan";
             this.btngaijuan.Size = new System.Drawing.Size(137, 35);
             this.btngaijuan.TabIndex = 3;
@@ -173,7 +175,7 @@
             this.btnfajuanCheck.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnfajuanCheck.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
             this.btnfajuanCheck.Location = new System.Drawing.Point(225, 504);
-            this.btnfajuanCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnfajuanCheck.Margin = new System.Windows.Forms.Padding(2);
             this.btnfajuanCheck.Name = "btnfajuanCheck";
             this.btnfajuanCheck.Size = new System.Drawing.Size(148, 35);
             this.btnfajuanCheck.TabIndex = 3;
@@ -186,7 +188,7 @@
             this.btngaijuanCheck.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btngaijuanCheck.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
             this.btngaijuanCheck.Location = new System.Drawing.Point(627, 504);
-            this.btngaijuanCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btngaijuanCheck.Margin = new System.Windows.Forms.Padding(2);
             this.btngaijuanCheck.Name = "btngaijuanCheck";
             this.btngaijuanCheck.Size = new System.Drawing.Size(148, 35);
             this.btngaijuanCheck.TabIndex = 3;
@@ -206,7 +208,7 @@
             this.panel1.Controls.Add(this.btnfajuan);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(327, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(994, 698);
             this.panel1.TabIndex = 4;

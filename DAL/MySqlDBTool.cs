@@ -32,7 +32,6 @@ namespace DAL
         /// </summary>
         Delete = 3
     }
-    #region 数据库增删改查操作
 
     public class MySqlDBTool
     {
@@ -44,11 +43,11 @@ namespace DAL
         }
 
         /// <summary>
-        /// 填充数据库的数据到表格
+        /// 自定义sql语句
         /// </summary>
         /// <param name="dgv">要填充数据的表格</param>
         /// <param name="tbname">数据表名称</param>
-        public int  Customsql(string sql)
+        public int Customsql(string sql)
         {
             int r = 0;
             try
@@ -60,12 +59,35 @@ namespace DAL
                     conn.Close();
                 }
             }
-            catch(Exception rt)
+            catch (Exception rt)
             {
                 MessageBox.Show(rt.Message);
                 conn.Close();
             }
             return r;
+        }
+
+        /// <summary>
+        /// 使用Load Data Local Infile语句执行mysql查询
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public int ImportDataToMySql(string cmd)
+        {
+            try
+            {
+                conn.Open();
+                int a = MySqlHelper.ExecuteNonQuery(conn, cmd);
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+                return a;
+            }
+            catch
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+                return -1;
+            }
         }
 
         /// <summary>
@@ -78,6 +100,21 @@ namespace DAL
             string sql = "SELECT * FROM " + tbname;
             dgv.DataSource = null;
             dgv.DataSource = MySqlCodeByDS(sql, tbname).Tables[tbname];
+        }
+      
+        /// <summary>
+        /// 填充数据库的数据到表格
+        /// </summary>
+        /// <param name="dgv">要填充数据的表格</param>
+        /// <param name="tbname">数据表名称</param>
+        /// <param name="bn">导航栏</param>
+        public void BindingDisplay(DataGridView dgv,   string tbname, BindingNavigator bn)
+        {
+            string sql = "SELECT * FROM " + tbname;
+            BindingSource bs = new BindingSource(MySqlCodeByDS(sql, tbname).Tables[tbname], null);
+            bn.BindingSource = bs;
+            dgv.DataSource = null;
+            dgv.DataSource = bs;
         }
 
         /// <summary>
@@ -162,7 +199,7 @@ namespace DAL
         }
 
         #region 执行带参数的IDU语句的方法
-       
+
         /// <summary>
         /// 执行带参数的 Select SQL语句的方法
         /// 返回Int值，若返回值大于0，则语句正确
@@ -172,7 +209,7 @@ namespace DAL
         /// <param name="idu">查询类型</param>
         /// <param name="addCond">无条件查询时的自定义Where语句</param>
         /// <returns></returns>
-        public int ParMySqlSelCode(string tbname,Dictionary<string, string> dic, IDU idu = IDU.Select, string addCond = "")
+        public int ParMySqlSelCode(string tbname, Dictionary<string, string> dic, IDU idu = IDU.Select, string addCond = "")
         {
             int r = 0;
             try
@@ -191,7 +228,7 @@ namespace DAL
                 Debug.Print(sc.CommandText);
                 // 开启数据库引擎
                 sc.Connection.Open();
-                // 返回执行查询的结果
+                // 返回执行的行数
                 r = (int)sc.ExecuteNonQuery();
                 conn.Close();
             }
@@ -208,16 +245,17 @@ namespace DAL
         /// 执行带参数的 insert SQL语句的方法
         /// 返回Int值，若返回值大于0，则语句正确
         /// </summary>
+        /// <param name="tbname">数据表</param>
         /// <param name="dic">字典，key键对应字段，value值对应要插入的新数据</param>
         /// <param name="idu">查询的类型</param>
         /// <param name="StrAtt">附加条件</param>
         /// <returns></returns>
-        public int ParMySqlIDUCode(Dictionary<string, string> dic, IDU idu = IDU.Insert, string StrAtt = "")
+        public int ParMySqlIDUCode(string tbname,Dictionary<string, string> dic, IDU idu = IDU.Insert, string StrAtt = "")
         {
             int r = 0;
             try
             {
-                string sql = ParGetInsertMySql("tb_taoti", dic, StrAtt);
+                string sql = ParGetInsertMySql(tbname, dic, StrAtt);
                 List<MySqlParameter> parameters = new List<MySqlParameter>();// 参数
 
                 // 动态添加参数
@@ -227,8 +265,9 @@ namespace DAL
                 MySqlCommand sc = new MySqlCommand(sql, conn);
                 foreach (var item in parameters)
                     sc.Parameters.Add(item);
-                //MessageBox.Show(sc.CommandText);
+                MessageBox.Show(sc.CommandText);
                 // 开启数据库引擎
+                if(conn.State==ConnectionState.Closed)
                 sc.Connection.Open();
                 // 返回执行查询的结果
                 r = (int)sc.ExecuteNonQuery();
@@ -252,12 +291,12 @@ namespace DAL
         /// <param name="idu">查询的类型</param>
         /// <param name="StrAtt">附加条件</param>
         /// <returns></returns>
-        public int ParMySqlIDUCode(Dictionary<string, string> dic, Dictionary<string, string> Sourcedic, IDU idu = IDU.Update, string StrAtt = "")
+        public int ParMySqlIDUCode(string tbname,Dictionary<string, string> dic, Dictionary<string, string> Sourcedic, IDU idu = IDU.Update, string StrAtt = "")
         {
             int r = 0;
             try
             {
-                string sql = ParGetUpdateMySql("tb_taoti", dic, Sourcedic, StrAtt);
+                string sql = ParGetUpdateMySql(tbname, dic, Sourcedic, StrAtt);
                 List<MySqlParameter> parameters = new List<MySqlParameter>();// 参数
 
                 // 动态添加参数
@@ -267,7 +306,7 @@ namespace DAL
                 MySqlCommand sc = new MySqlCommand(sql, conn);
                 foreach (var item in parameters)
                     sc.Parameters.Add(item);
-                //MessageBox.Show(sc.CommandText);
+                MessageBox.Show(sc.CommandText);
                 // 开启数据库引擎
                 sc.Connection.Open();
                 // 返回执行查询的结果
@@ -292,12 +331,12 @@ namespace DAL
         /// <param name="idu">查询的类型</param>
         /// <param name="StrAtt">附加条件</param>
         /// <returns></returns>
-        public int ParMySqlIDUCode(Dictionary<string, string> dic, int nothing, IDU idu = IDU.Delete, string StrAtt = "")
+        public int ParMySqlIDUCode(string tbname,Dictionary<string, string> dic, int nothing, IDU idu = IDU.Delete, string StrAtt = "")
         {
             int r = 0;
             try
             {
-                string sql = ParGetDeleteMySql("tb_taoti", dic, StrAtt);
+                string sql = ParGetDeleteMySql(tbname, dic, StrAtt);
                 List<MySqlParameter> parameters = new List<MySqlParameter>();// 参数
 
                 // 动态添加参数
@@ -332,12 +371,12 @@ namespace DAL
         /// <param name="dic">字典，key键对应字段，value值对应要更新的数据（第一个key为ID）</param>
         /// <param name="idu">查询的类型</param>
         /// <returns></returns>
-        public int CusMySqlIDUCode(string CusApp, Dictionary<string, string> dic , IDU idu = IDU.Update)
+        public int CusMySqlIDUCode(string tbname,string CusApp, Dictionary<string, string> dic, IDU idu = IDU.Update)
         {
             int r = 0;
             try
             {
-                string sql = CusGetUpdateMySql("tb_taoti", dic, CusApp);
+                string sql = CusGetUpdateMySql(tbname, dic, CusApp);
                 List<MySqlParameter> parameters = new List<MySqlParameter>();// 参数
 
                 // 动态添加参数
@@ -370,7 +409,7 @@ namespace DAL
         #endregion
 
         #region 带参数的IDU语句
-        
+
         /// <summary>
         /// 生成带参数的select语句
         /// </summary>
@@ -378,7 +417,7 @@ namespace DAL
         /// <param name="dic">查询条件（字段名和数据）。默认为null值，即无条件查询。当有多个条件时，各条件之间是与(and)关系</param>
         /// <param name="addCond">无条件查询时的自定义Where语句</param>
         /// <returns></returns>
-        public static string ParGetSelectMySql(string tbname,  Dictionary<string, string> dic, string addCond = "")
+        public static string ParGetSelectMySql(string tbname, Dictionary<string, string> dic, string addCond = "")
         {
             StringBuilder sb = new StringBuilder(Model.ExamInfo.BufferSize);
             sb.AppendFormat("SELECT * FROM `{0}` ", tbname);
@@ -553,5 +592,4 @@ namespace DAL
 
         #endregion
     }
-    #endregion
 }

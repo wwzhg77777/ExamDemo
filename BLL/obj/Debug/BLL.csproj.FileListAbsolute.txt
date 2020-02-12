@@ -12,3 +12,5 @@ C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.csproj.CoreCompil
 C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.csproj.CopyComplete
 C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.dll
 C:\Users\Administrator\source\repos\ExamDemo\BLL\obj\Debug\BLL.pdb
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\CustomDataGridView.dll
+C:\Users\Administrator\source\repos\ExamDemo\BLL\bin\Debug\CustomDataGridView.pdb

@@ -29,26 +29,27 @@ namespace UI
         private void MainFrm_Load(object sender, EventArgs e)
         {
             BLL.KEY.MainFrmkey = "1";
-            listView1.Items.Add("");
-            listView1.Items.Add("");
+            listView1.Items.Add("课程 / 院系 / 专业 管理");
             listView1.Items.Add("题库管理");
             listView1.Items.Add("考生管理");
             listView1.Items.Add("抽题组卷");
             listView1.Items.Add("设  置");
+            listView1.Items.Add("");
             listView1.LargeImageList = imageList1;
-            for (int i = 2; i < 6; i++)
-                listView1.Items[i].ImageIndex = i - 2;
+            for (int i = 0; i < 5; i++)
+                listView1.Items[i].ImageIndex = i;
             BLL.Method.SetListViewSpacing(listView1, 260, 200);// 设置图标之间的间距        
         }
         #endregion
 
         #region 创建窗体
-        fajuanFrm fF = null;// 发卷
-
+       public static fajuanFrm fF = null;// 发卷
+      public static  ScoreManFrm SMF = null;
         #endregion
 
         private void fajuan(object sender, EventArgs e)
         {
+            ExamMainTea.EMTFrm.BottomSidebar.Visible = true;
             if (BLL.KEY.fajuanFrmkey != "1")// 发卷窗体关闭状态
             {
                 fF = new fajuanFrm(this);
@@ -76,26 +77,40 @@ namespace UI
         {
 
         }
-
-        private void listView1_Click(object sender, EventArgs e)
+        
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
 
             #region 判断选中项
             switch (listView1.SelectedItems[0].ImageIndex)
             {
-                case 0:// 题库管理
+                case 0:// 课程管理/院系管理
+
+                    if (BLL.KEY.ScoreManFrmkey != "1")// 发卷窗体关闭状态
+                    {
+                        SMF = new ScoreManFrm((ExamMainTea)ActiveForm);
+                        SMF.MdiParent = ActiveForm;  // 使父窗体成为子窗体的MDI容器
+                        SMF.Show();
+                        SMF.WindowState = FormWindowState.Maximized;
+                    }
+                    else// 激活窗体
+                    {
+                        Login.BLL.TeaManager.ActiveFrm(SMF);
+                    }
+                    break;
+
+                case 1:// 题库管理
+
+                    break;
+                case 2:// 考生管理
 
 
                     break;
-                case 1:// 考生管理
+                case 3:// 抽题组卷
 
 
                     break;
-                case 2:// 抽题组卷
-
-
-                    break;
-                case 3:// 设置
+                case 4:// 设置
 
 
                     break;

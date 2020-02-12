@@ -21,5 +21,17 @@ namespace UI
         {
             this.Close();
         }
+
+        private void btnLogon_Click(object sender, EventArgs e)
+        {
+            // 判断通过的条件
+
+            // 密码与确认密码必须相同
+
+            // 查询mysql并执行注册
+
+            // 显示注册成功，返回
+            this.Close();
+        }
     }
 }

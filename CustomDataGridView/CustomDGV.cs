@@ -1790,6 +1790,8 @@ namespace DataGridViewAutoFilter
                         DataGridViewAutoFilter.DataGridViewAutoFilterColumnHeaderCell(col.HeaderCell);
                 }
                 DGV.AutoResizeColumns();
+                if(DGV.CurrentCell==null)
+                    return Number;
                 DataGridViewAutoFilter.DataGridViewAutoFilterColumnHeaderCell filterCell = DGV.CurrentCell.OwningColumn.HeaderCell as DataGridViewAutoFilter.DataGridViewAutoFilterColumnHeaderCell;
                 //if (filterCell != null)
                 //{

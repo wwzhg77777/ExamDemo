@@ -16,17 +16,22 @@ namespace DAL
         /// <summary>
         /// 读取Excel表格
         /// </summary>
+        /// <param name="file">文件对话框</param>
+        /// <param name="OpenOrNo">指示是否由该事件打开对话框,true为是，false为否</param>
         /// <returns></returns>
-        public static DataTable ReadExcelToTable()
+        public static DataTable ReadExcelToTable(OpenFileDialog file,bool OpenOrNo)
         {
-            // 打开文件
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "Excel文件| *.xlsx";
-            file.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            file.Multiselect = false;
+            if (OpenOrNo)// true。由该事件打开对话框
+            {
+                // 打开文件
+                file = new OpenFileDialog();
+                file.Filter = "Excel文件| *.xls*";
+                //file.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                file.Multiselect = false;
 
-            if (file.ShowDialog() == DialogResult.Cancel)
-                return null;
+                if (file.ShowDialog() == DialogResult.Cancel)
+                    return null;
+            }
 
             //判断文件后缀
             var path = file.FileName;
